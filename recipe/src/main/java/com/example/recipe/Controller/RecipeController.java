@@ -31,12 +31,9 @@ public class RecipeController {
     }
 
     @PutMapping(path = "{recipeId}")
-    public void updateRecipe(
-            @PathVariable("studentId") Long recipeId,
-            @RequestParam (required = false) String name,
-            @RequestParam(required = false) String description)
-            {
-        recipeService.updateRecipe(recipeId, name, description);
+    public Recipe updateRecipe(@RequestBody Recipe recipe) {
+        return recipeService.updateRecipe(recipe);
+
     }
 
     @DeleteMapping(path = "{recipeId}")

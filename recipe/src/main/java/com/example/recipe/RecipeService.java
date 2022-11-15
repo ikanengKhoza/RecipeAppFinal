@@ -29,11 +29,18 @@ public class RecipeService {
         return recipeRepository.findAll();
     }
 
-    public void deleteById(Long recipeId) {
+    public String deleteById(Long recipeId) {
         recipeRepository.deleteById(recipeId);
+        return "deleted recipe";
     }
 
-    public void updateRecipe(Long recipeId, String name, String description) {
-        recipeRepository.findById(recipeId);
+    public Recipe updateRecipe(Recipe recipe) {
+        Recipe existingRecipe = recipeRepository.findById(recipe.getId()).orElseThrow();
+        existingRecipe.setId(recipe.getId());
+        existingRecipe.setName(recipe.getName());
+        existingRecipe.setIngredients(recipe.getIngredients());
+        existingRecipe.setDescription(recipe.getDescription());
+        existingRecipe.setInstructions(recipe.getInstructions());
+        return recipeRepository.save(existingRecipe);
     }
 }
